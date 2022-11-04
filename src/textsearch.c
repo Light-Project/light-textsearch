@@ -6,23 +6,23 @@
 #include <string.h>
 #include "textsearch.h"
 
-static struct ts_algorithm *algorithms[] = {
-    &bm_algorithm,
-    &kmp_algorithm,
-    &sunday_algorithm,
-};
+// static struct ts_algorithm *algorithms[] = {
+//     &bm_algorithm,
+//     &kmp_algorithm,
+//     &sunday_algorithm,
+// };
 
-static struct ts_algorithm *algorithm_find(const char *name)
-{
-    unsigned int count;
+// static struct ts_algorithm *algorithm_find(const char *name)
+// {
+//     unsigned int count;
 
-    for (count = 0; count < (sizeof(algorithms) / sizeof(algorithms[0])); ++count) {
-        if (!strcmp(algorithms[count]->name, name))
-            return algorithms[count];
-    }
+//     for (count = 0; count < (sizeof(algorithms) / sizeof(algorithms[0])); ++count) {
+//         if (!strcmp(algorithms[count]->name, name))
+//             return algorithms[count];
+//     }
 
-    return NULL;
-}
+//     return NULL;
+// }
 
 struct ts_context *textsearch_prepare(const char *name, const void *pattern,
                                       size_t len, unsigned long flags)
@@ -30,10 +30,10 @@ struct ts_context *textsearch_prepare(const char *name, const void *pattern,
     struct ts_algorithm *algo;
     struct ts_context *tsc;
 
-    algo = algorithm_find(name);
-    if (!algo)
-        return NULL;
-
+    // algo = algorithm_find(name);
+    // if (!algo)
+    //     return NULL;
+    algo = &kmp_algorithm;
     tsc = algo->prepare(pattern, len, flags);
     if (!tsc)
         return NULL;
